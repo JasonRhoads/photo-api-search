@@ -1,0 +1,78 @@
+const API_KEY = "SPxnWby8PctsuSYisTHoVFvowmSo20gXsPFwHzfp1PZq5mAJK1147f1h";
+const xhttp = new XMLHttpRequest();
+
+
+const user_search_input = document.querySelector("#search_input");
+
+let photos;
+let total_photos;
+let photo_container = document.querySelector(".photo-container");
+
+user_search_input.addEventListener("change", (event) => {
+    xhttp.open("GET", `https://api.pexels.com/v1/search?query=${event.target.value}`, false);
+    xhttp.setRequestHeader('Authorization', API_KEY);
+    xhttp.send();
+        
+    photos = JSON.parse(xhttp.responseText).photos;
+    console.log(JSON.parse(xhttp.responseText));
+    total_photos = JSON.parse(xhttp.responseText).total_results;
+
+    photo_container.innerHTML = "";
+    displayPhotos(user_search_input.value);
+    
+    event.target.value = user_search_input.value;
+    document.activeElement.blur();
+    
+})
+
+
+function capitalizeFirstLetter(word) {
+    return word[0].toUpperCase() + word.slice(1);
+}
+
+
+function displayPhotos(heading) {
+    
+    changeHeader();
+
+    document.querySelector(".photo-title").innerHTML = `
+    <h2 class="grey-font">${capitalizeFirstLetter(heading)} Images</h2>
+    <a href="/" id="total-photos" class="button total-photos">Photos ${total_photos}</a>
+    <a href="/" id="total-videos" class="total-numbers grey-font">Videos 1k</a>
+    <a href="/" id="total-users" class="total-numbers grey-font">Users 222</a>    
+    `;
+            
+    for (let photo of photos) {
+        photo_container.innerHTML += 
+        `<div class="photo">
+            <div class="photo-top-button-container">
+                <a href="#"><svg class="photo-button" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4a4a4a"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 6.2C5 5.07989 5 4.51984 5.21799 4.09202C5.40973 3.71569 5.71569 3.40973 6.09202 3.21799C6.51984 3 7.07989 3 8.2 3H15.8C16.9201 3 17.4802 3 17.908 3.21799C18.2843 3.40973 18.5903 3.71569 18.782 4.09202C19 4.51984 19 5.07989 19 6.2V21L12 16L5 21V6.2Z" stroke="#4a4a4a" stroke-width="2" stroke-linejoin="round"></path> </g></svg></a>
+                <a href="#"><svg class="photo-button" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4a4a4a"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></a>
+            </div>
+            <a href="${photo.url}" target="_blank">
+                <img src="${photo.src.large}" alt="${photo.alt}" class="photo-image">  
+            </a>
+            <div class="photo-caption">
+                <a href="${photo.photographer_url}" target="_blank">
+                    ${photo.photographer}
+                </a>
+                <a href="#"><svg class="photo-button" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4a4a4a"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12.5535 16.5061C12.4114 16.6615 12.2106 16.75 12 16.75C11.7894 16.75 11.5886 16.6615 11.4465 16.5061L7.44648 12.1311C7.16698 11.8254 7.18822 11.351 7.49392 11.0715C7.79963 10.792 8.27402 10.8132 8.55352 11.1189L11.25 14.0682V3C11.25 2.58579 11.5858 2.25 12 2.25C12.4142 2.25 12.75 2.58579 12.75 3V14.0682L15.4465 11.1189C15.726 10.8132 16.2004 10.792 16.5061 11.0715C16.8118 11.351 16.833 11.8254 16.5535 12.1311L12.5535 16.5061Z" fill="#4a4a4a"></path> <path d="M3.75 15C3.75 14.5858 3.41422 14.25 3 14.25C2.58579 14.25 2.25 14.5858 2.25 15V15.0549C2.24998 16.4225 2.24996 17.5248 2.36652 18.3918C2.48754 19.2919 2.74643 20.0497 3.34835 20.6516C3.95027 21.2536 4.70814 21.5125 5.60825 21.6335C6.47522 21.75 7.57754 21.75 8.94513 21.75H15.0549C16.4225 21.75 17.5248 21.75 18.3918 21.6335C19.2919 21.5125 20.0497 21.2536 20.6517 20.6516C21.2536 20.0497 21.5125 19.2919 21.6335 18.3918C21.75 17.5248 21.75 16.4225 21.75 15.0549V15C21.75 14.5858 21.4142 14.25 21 14.25C20.5858 14.25 20.25 14.5858 20.25 15C20.25 16.4354 20.2484 17.4365 20.1469 18.1919C20.0482 18.9257 19.8678 19.3142 19.591 19.591C19.3142 19.8678 18.9257 20.0482 18.1919 20.1469C17.4365 20.2484 16.4354 20.25 15 20.25H9C7.56459 20.25 6.56347 20.2484 5.80812 20.1469C5.07435 20.0482 4.68577 19.8678 4.40901 19.591C4.13225 19.3142 3.9518 18.9257 3.85315 18.1919C3.75159 17.4365 3.75 16.4354 3.75 15Z" fill="#4a4a4a"></path> </g></svg></a>
+            </div>
+            
+        </div>`
+    }
+}
+
+
+function changeHeader() {
+    document.querySelector("#logo").classList.replace("light-logo", "dark-logo");
+    document.querySelector("header").classList.replace("home-header", "search-header");
+    document.querySelector("header").classList.replace("white-font", "grey-font");
+    document.querySelector("#search_input").classList.add("search-input");
+    document.querySelector("#search-container h1").innerHTML = "";
+    document.querySelector("#search-container p").innerHTML = "";
+    document.querySelector("#upload-button").classList.replace("light-button", "dark-button");
+    document.querySelector("#home-button").classList.replace("white-font", "grey-font");
+    document.querySelector("svg").classList.add("grey-font");
+    document.querySelector(".second-svg").classList.add("grey-font");
+}

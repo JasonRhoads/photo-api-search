@@ -39,9 +39,9 @@ function displayPhotos(heading) {
 
     document.querySelector(".photo-title").innerHTML = `
     <h2 class="grey-font">${capitalizeFirstLetter(heading)} Images</h2>
-    <a href="/" id="total-photos" class="button total-photos">Photos ${total_photos}</a>
-    <a href="/" id="total-videos" class="total-numbers grey-font">Videos 1k</a>
-    <a href="/" id="total-users" class="total-numbers grey-font">Users 222</a>    
+    <a href="/photo-api-search/" id="total-photos" class="button total-photos">Photos ${total_photos}</a>
+    <a href="/photo-api-search/" id="total-videos" class="total-numbers grey-font">Videos 1k</a>
+    <a href="/photo-api-search/" id="total-users" class="total-numbers grey-font">Users 222</a>    
     `;
             
     for (let photo of photos) {

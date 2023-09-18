@@ -20,6 +20,7 @@ html, body {
 .search-header {
     border-bottom: 1px solid rgba(74, 74, 74, 0.1);
     height: 80px;
+    padding-bottom: 15px;
 }
 
 nav {
@@ -132,15 +133,36 @@ input {
     height: 50px;
     margin: 15px;
     padding-left: 15px;
+    width: 100%;
+}
+
+.input-container {
+    margin: auto;
     width: 600px;
 }
 
 .search-input {
-    background-color: #f1f1f1;
     position: absolute;
     top: 0;
     left: 225px;
 }
+
+.header-search-input-container {
+    width: 550px;
+}
+
+.header-search-input-container input {
+    background-color: #f1f1f1;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: initial;
+}
+
 
 .photo-title {
     padding: 0 50px;

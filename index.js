@@ -2,7 +2,7 @@ const API_KEY = "SPxnWby8PctsuSYisTHoVFvowmSo20gXsPFwHzfp1PZq5mAJK1147f1h";
 const xhttp = new XMLHttpRequest();
 
 
-const user_search_input = document.querySelector("#search_input");
+const user_search_input = document.querySelector("#search-input");
 
 let photos;
 let total_photos;
@@ -20,7 +20,7 @@ user_search_input.addEventListener("change", (event) => {
     photo_container.innerHTML = "";
     displayPhotos(user_search_input.value);
     
-    event.target.value = user_search_input.value;
+    
     document.activeElement.blur();
     
 })
@@ -34,6 +34,8 @@ function capitalizeFirstLetter(word) {
 function displayPhotos(heading) {
     
     changeHeader();
+
+    document.querySelector("#search-input").value = heading;
 
     document.querySelector(".photo-title").innerHTML = `
     <h2 class="grey-font">${capitalizeFirstLetter(heading)} Images</h2>
@@ -68,7 +70,9 @@ function changeHeader() {
     document.querySelector("#logo").classList.replace("light-logo", "dark-logo");
     document.querySelector("header").classList.replace("home-header", "search-header");
     document.querySelector("header").classList.replace("white-font", "grey-font");
-    document.querySelector("#search_input").classList.add("search-input");
+    document.querySelector(".header-search-input-container").classList.replace("hide", "show");
+    document.querySelector(".header-search-input-container").appendChild(document.querySelector("#search-input"));
+    document.querySelector(".input-container").classList.add("hide");
     document.querySelector("#search-container h1").innerHTML = "";
     document.querySelector("#search-container p").innerHTML = "";
     document.querySelector("#upload-button").classList.replace("light-button", "dark-button");

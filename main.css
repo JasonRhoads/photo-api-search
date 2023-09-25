@@ -175,18 +175,15 @@ h2 {
 }
 
 .photo-container {
-    align-items: flex-start;
-    display: flex;
-    flex-wrap: wrap;
+    columns: 3;
     gap: 20px;
-    justify-content: space-between;
-    padding: 0 50px;
+    padding: 0 5%;
     margin: auto;
 }
 
 .photo {
-    max-width: 32%;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .photo-image {
@@ -200,8 +197,9 @@ h2 {
     height: 60px;
     justify-content: space-between;
     margin-bottom: -60px;
-    position: relative;
+    position: absolute;
     text-align: left;
+    width: 100%;
 }
 
 .photo-caption a {
@@ -250,4 +248,22 @@ h2 {
     right: 0;
     text-align: right;
     width: 100px;
+}
+
+
+footer {
+    height: 100px;
+}
+
+@media only screen and (max-width: 900px) {
+    .photo-container {
+        columns: 2;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .photo-container {
+        columns: 1;
+    }
 }
